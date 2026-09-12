@@ -1,0 +1,16 @@
+{
+  "name": "calendario-casal",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Calendário privado do casal com estatísticas e comparação mensal",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "pg": "^8.13.1"
+  }
+}
