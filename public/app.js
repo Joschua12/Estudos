@@ -1,4 +1,6 @@
 (() => {
+  const pad = n => String(n).padStart(2, '0');
+
   const state = {
     entries: [],
     cursor: new Date(),
@@ -7,7 +9,6 @@
   };
 
   const $ = id => document.getElementById(id);
-  const pad = n => String(n).padStart(2, '0');
   const monthNames = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
   const shortMonths = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
 
@@ -105,10 +106,10 @@
     a.value=oldA&&months.includes(oldA)?oldA:(months[1]||months[0]); b.value=oldB&&months.includes(oldB)?oldB:months[0];
   }
 
-  function deltaCell(a,b){
+  function deltaCell(a,b, suffix=''){
     const d=pctDelta(a,b); if(d===null) return '<span class="delta up">novo</span>';
     const cls=d>0.05?'up':d<-0.05?'down':'flat'; const sign=d>0?'+':'';
-    return `<span class="delta ${cls}">${sign}${d.toFixed(0)}%</span>`;
+    return `<span class="delta ${cls}">${sign}${d.toFixed(0)}%${suffix}</span>`;
   }
 
   function renderComparison(){
@@ -147,7 +148,7 @@
       const payload={date:state.selectedDate,period:state.selectedPeriod,selfWanted:$('selfWanted').checked,partnerWanted:$('partnerWanted').checked,happened:$('happened').checked};
       const saved=await api('/api/entries',{method:'PUT',body:JSON.stringify(payload)});
       const idx=state.entries.findIndex(e=>entryKey(e.date,e.period)===entryKey(saved.date,saved.period)); if(idx>=0) state.entries[idx]=saved; else state.entries.push(saved);
-      setStatus('Sincronizado'); renderAll(); $('feedback').textContent='Registro salvo.';
+      setStatus('Sincronizado'); $('feedback').textContent='Registro salvo.'; renderAll();
     }catch(e){setStatus('Falha ao salvar'); $('feedback').textContent=e.message;}
   }
 
