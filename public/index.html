@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>Nosso Calendário</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">PRIVADO • SÓ VOCÊS DOIS</p>
+        <h1>Nosso Calendário</h1>
+        <p class="subtitle">Um jeito simples de acompanhar vontade, momentos juntos e evolução mensal.</p>
+      </div>
+      <div class="status" id="saveStatus" aria-live="polite">Sincronizado</div>
+    </header>
+
+    <section class="metric-grid" aria-label="Resumo do mês">
+      <article class="metric"><span>Fizemos</span><strong id="metricHappened">0</strong><small id="metricHappenedSub">neste mês</small></article>
+      <article class="metric"><span>Eu quis</span><strong id="metricSelf">0</strong><small id="metricSelfSub">registros</small></article>
+      <article class="metric"><span>Minha esposa quis</span><strong id="metricPartner">0</strong><small id="metricPartnerSub">registros</small></article>
+      <article class="metric"><span>Os dois quiseram</span><strong id="metricBoth">0</strong><small id="metricBothSub">registros</small></article>
+    </section>
+
+    <section class="layout">
+      <article class="panel calendar-panel">
+        <div class="panel-head">
+          <div>
+            <h2>Calendário</h2>
+            <p>Selecione um dia e registre manhã ou noite.</p>
+          </div>
+          <div class="month-nav">
+            <button class="icon-btn" id="prevMonth" aria-label="Mês anterior">‹</button>
+            <strong id="monthLabel"></strong>
+            <button class="icon-btn" id="nextMonth" aria-label="Próximo mês">›</button>
+          </div>
+        </div>
+        <div class="weekdays" aria-hidden="true"><span>Dom</span><span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span><span>Sáb</span></div>
+        <div class="calendar" id="calendar"></div>
+        <div class="legend"><span><i class="dot morning"></i> manhã</span><span><i class="dot night"></i> noite</span><span><i class="dot happened"></i> aconteceu</span></div>
+      </article>
+
+      <article class="panel form-panel">
+        <div class="panel-head compact">
+          <div><h2>Registrar</h2><p id="selectedDateLabel">Selecione um dia.</p></div>
+        </div>
+
+        <div class="segmented" role="group" aria-label="Período">
+          <button class="segment active" data-period="morning">☀️ Manhã</button>
+          <button class="segment" data-period="night">🌙 Noite</button>
+        </div>
+
+        <div class="question">
+          <span>Quem quis?</span>
+          <label class="toggle-row"><span><b>Eu</b><small>Eu estava com vontade</small></span><input type="checkbox" id="selfWanted"><i></i></label>
+          <label class="toggle-row"><span><b>Minha esposa</b><small>Ela estava com vontade</small></span><input type="checkbox" id="partnerWanted"><i></i></label>
+        </div>
+
+        <label class="toggle-row emphasis"><span><b>Aconteceu?</b><small>Vocês fizeram sexo nesse período</small></span><input type="checkbox" id="happened"><i></i></label>
+
+        <div class="actions">
+          <button class="primary" id="saveButton">Salvar registro</button>
+          <button class="secondary" id="deleteButton">Excluir</button>
+        </div>
+        <p class="feedback" id="feedback" aria-live="polite"></p>
+      </article>
+    </section>
+
+    <section class="panel compare-panel">
+      <div class="panel-head compare-head">
+        <div><h2>Comparativo mensal</h2><p>Compare quantidade, média semanal e interesse dos dois.</p></div>
+        <div class="compare-selects">
+          <label>Mês A<select id="monthA"></select></label>
+          <span>×</span>
+          <label>Mês B<select id="monthB"></select></label>
+        </div>
+      </div>
+      <div class="comparison" id="comparison"></div>
+    </section>
+
+    <section class="panel trend-panel">
+      <div class="panel-head"><div><h2>Evolução dos últimos 6 meses</h2><p>Frequência e vontade ao longo do tempo.</p></div></div>
+      <div class="trend-legend"><span><i class="line-key happened"></i>Fizemos</span><span><i class="line-key self"></i>Eu quis</span><span><i class="line-key partner"></i>Minha esposa quis</span></div>
+      <div class="chart-wrap"><svg id="trendChart" viewBox="0 0 760 260" role="img" aria-label="Gráfico de evolução mensal"></svg></div>
+    </section>
+
+    <footer>Seus registros ficam salvos no banco privado do aplicativo.</footer>
+  </main>
+  <script src="/app.js"></script>
+</body>
+</html>
